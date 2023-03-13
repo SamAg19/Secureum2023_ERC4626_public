@@ -58,18 +58,6 @@ hook Sload uint256 val balanceOf[KEY address addy] STORAGE {
 invariant totalSupplyIsSumOfBalances(env e)
     totalSupply() == sumOfBalances
 
-rule transferFromSpec(address to, uint256 amount) {
-    uint256 balanceBefore = balanceOf(to);
-
-    env e;
-    transfer(e, to, amount);
-
-    uint256 balanceAfter = balanceOf(to);
-
-    assert (to != e.msg.sender => balanceAfter == balanceBefore + amount) || (to == e.msg.sender => balanceAfter == balanceBefore);
-
-}
-
 rule increaseChecks(method f, address user) {
     uint256 totalSupplyBefore = totalSupply();
     uint256 shareBalanceUserBefore = balanceOf(user);

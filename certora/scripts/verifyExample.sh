@@ -8,14 +8,15 @@ then
     MSG="- $2"
 fi
 
+solc-select use 0.8.0
+
 certoraRun \
-    certora/harnesses/mixins/ERC4626BalanceOfHarness.sol \
-    certora/helpers/DummyERC20A.sol certora/helpers/DummyERC20B.sol \
-    --verify ERC4626BalanceOfHarness:certora/specs/example.spec \
-    --solc solc8.0 \
+    ../harnesses/mixins/ERC4626BalanceOfHarness.sol \
+    ../helpers/DummyERC20A.sol ../helpers/DummyERC20B.sol \
+    --verify ERC4626BalanceOfHarness:../specs/ERC4626.spec \
+    --link ERC4626BalanceOfHarness:asset=DummyERC20A \
     --optimistic_loop \
     --loop_iter 3 \
-    --send_only \
     --cloud \
     --rule_sanity \
     $RULE \
